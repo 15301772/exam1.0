@@ -6,7 +6,7 @@ public class User {
     private String loginName;
     private String password;
     private Integer right;
-    private Integer stauts;
+    private Integer status;
     private String headPath;
     private Integer classId;
     private String sex;
@@ -53,11 +53,11 @@ public class User {
     }
 
     public Integer getStauts() {
-        return stauts;
+        return status;
     }
 
     public void setStauts(Integer stauts) {
-        this.stauts = stauts;
+        this.status = stauts;
     }
 
     public String getHeadPath() {
@@ -100,7 +100,7 @@ public class User {
                 ", loginName='" + loginName + '\'' +
                 ", password='" + password + '\'' +
                 ", right=" + right +
-                ", stauts=" + stauts +
+                ", stauts=" + status +
                 ", headPath='" + headPath + '\'' +
                 ", classId=" + classId +
                 ", sex='" + sex + '\'' +

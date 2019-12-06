@@ -1,4 +1,4 @@
-layui.use(['form','layer','table','laytpl'],function(){
+layui.use(['form','layer','table','laytpl','jquery'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
@@ -22,8 +22,8 @@ layui.use(['form','layer','table','laytpl'],function(){
                 return '<a class="layui-blue" href="mailto:'+d.email+'">'+d.email+'</a>';
             }},
             {field: 'sex', title: '用户性别', align:'center'},
-            {field: 'stauts', title: '用户状态',  align:'center',templet:function(d){
-                return d.stauts == "0" ? "正常使用" : "限制使用";
+            {field: 'status', title: '用户状态',  align:'center',templet:function(d){
+                return d.status == "0" ? "正常使用" : "限制使用";
             }},
             {field: 'right', title: '用户权限', align:'center',templet:function(d){
                 if(d.right == "0"){
@@ -64,12 +64,12 @@ layui.use(['form','layer','table','laytpl'],function(){
             success : function(layero, index){
                 var body = layui.layer.getChildFrame('body', index);
                 if(edit){
-                    body.find(".userName").val(edit.userName);  //登录名
-                    body.find(".userEmail").val(edit.userEmail);  //邮箱
-                    body.find(".userSex input[value="+edit.userSex+"]").prop("checked","checked");  //性别
-                    body.find(".userGrade").val(edit.userGrade);  //会员等级
-                    body.find(".userStatus").val(edit.userStatus);    //用户状态
-                    body.find(".userDesc").text(edit.userDesc);    //用户简介
+                    body.find(".nickName").val(edit.nickName);  //昵称
+                    body.find(".loginName").val(edit.loginName);  //登录名
+                    body.find(".email").val(edit.email);  //邮箱
+                    body.find(".sex input[value="+edit.sex+"]").prop("checked","checked");  //性别
+                    body.find(".right").val(edit.right);  //会员等级
+                    body.find(".status").val(edit.status);    //用户状态
                     form.render();
                 }
                 setTimeout(function(){
