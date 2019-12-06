@@ -22,8 +22,8 @@ layui.use(['form','layer','table','laytpl'],function(){
                 return '<a class="layui-blue" href="mailto:'+d.email+'">'+d.email+'</a>';
             }},
             {field: 'sex', title: '用户性别', align:'center'},
-            {field: 'status', title: '用户状态',  align:'center',templet:function(d){
-                return d.status == "0" ? "正常使用" : "限制使用";
+            {field: 'stauts', title: '用户状态',  align:'center',templet:function(d){
+                return d.stauts == "0" ? "正常使用" : "限制使用";
             }},
             {field: 'right', title: '用户权限', align:'center',templet:function(d){
                 if(d.right == "0"){

@@ -28,36 +28,29 @@ public class UserController {
 
     @RequestMapping("/login.action")
     @ResponseBody
-    public String login(@RequestBody User user) {
-        HttpSession session = request.getSession();
+    public User login(@RequestBody User user) {
         User loginUser = userDao.Login(user);
-        if (loginUser != null) {
-            //重定向
-            session.setAttribute("user", loginUser);
-            return "success";
-        } else {
-            return "fail";
-        }
+        return loginUser;
     }
 
-    @RequestMapping("selectLayUitable_Page.action")
+    @RequestMapping("/userList.action")
     @ResponseBody
-    public Map<String, Object> selectLayUitable_Page(int page, int limit,User user) {
+    public Map<String, Object> selectLayUitable_Page(User user) {
         HashMap<String, Object> map = new HashMap<>();
-        int pageStart = (page - 1) * limit;
-        map.put("pagestart", pageStart);
-        map.put("size", limit);
+//        int pageStart = (page - 1) * limit;
+//        map.put("pagestart", pageStart);
+//        map.put("size", limit);
 //        map.put("user_name",user.getUser_name());
 //        map.put("user_major",user.getUser_major());
-        List<User> users = userDao.select(map);
-        Integer pagecount = userDao.userCount();
-        Map map1=new HashMap();
-        map1.put("code",0);
-        map1.put("msg","");
-        map1.put("count",pagecount);
+        List<User> users = userDao.getUserList(user);
+//        Integer pagecount = userDao.userCount();
+//        Map map=new HashMap();
+        map.put("code",0);
+        map.put("msg","");
+//        map1.put("count",pagecount);
         JSONArray data = JSONArray.fromObject(users);
-        map1.put("data",data);
-        return map1;
+        map.put("data",data);
+        return map;
 
     }
 }

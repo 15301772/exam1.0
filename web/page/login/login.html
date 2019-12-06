@@ -566,7 +566,7 @@
                 alert('请输入验证码！');
                 return false;
             }else if(val == num){
-                alert('提交成功！');
+                // alert('提交成功！');
                 $("#code").val('');
                 draw(show_num);
                 return true;
@@ -638,12 +638,13 @@
                 {
                     url: "login.action",
                     data: JSON.stringify(data.field),
-                    dataType: "text",
-                    type: "post",
+                    type: 'post',
                     contentType: "application/json",
                     success: function (d) {
-                        if (d == "success") {
-                            location.href = "index.html";
+                        if (d) {
+                            window.sessionStorage.setItem("nickName", d.nickName);
+                            window.sessionStorage.setItem("right", d.right);
+                            window.location.href = "../../index.html";
                         } else {
                             layer.msg("用户名密码错误")
                         }

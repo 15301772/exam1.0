@@ -4,114 +4,105 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.UserMapper">
 
-    <resultMap id="usermap" type="user">
-        <id property="user_id" column="id"></id>
-        <result property="user_name" column="name"></result>
-        <result property="user_age" column="age"></result>
-        <result property="user_major" column="major"></result>
-        <result property="user_password" column="password"></result>
-        <result property="address" column="address"></result>
-        <result property="headpath" column="headpath"></result>
-    </resultMap>
-
-
-    <select id="search" parameterType="user" resultMap="usermap">
-        <include refid="s"/>
-        <where>
-            <if test="user_name!=null and user_name!=''">
-                and name like '%${user_name}%'
-            </if>
-
-            <if test="user_major!=null and user_major!=''">
-                and major = #{user_major}
-            </if>
-        </where>
-    </select>
-
     <select id="login" parameterType="user" resultType="user">
         select * from user where loginName=#{loginName} and password=#{password}
     </select>
+
     <select id="getUserList" parameterType="user" resultType="user">
         select * from user
-        <where>
-            <if test="nickName!=null and nickName!=''">
-                and nickName like '%${nickName}%'
-            </if>
-        </where>
-    </select>
-    <select id="getUserByid" parameterType="java.lang.Integer" resultMap="usermap">
-        <include refid="s"/>
-        where id=#{user_id}
+<!--        <where>-->
+<!--            <if test="nickName!=null and nickName!=''">-->
+<!--                and nickName like '%${nickName}%'-->
+<!--            </if>-->
+<!--        </where>-->
     </select>
 
-    <select id="checkUserName" parameterType="string" resultType="integer">
-        select count(*) from user where name=#{name}
-    </select>
+<!--    <select id="search" parameterType="user" resultMap="usermap">-->
+<!--        <include refid="s"/>-->
+<!--        <where>-->
+<!--            <if test="user_name!=null and user_name!=''">-->
+<!--                and name like '%${user_name}%'-->
+<!--            </if>-->
 
-    <update id="updatehead" parameterType="user">
-            update user set headpath=#{headpath} where id=#{user_id}
-</update>
+<!--            <if test="user_major!=null and user_major!=''">-->
+<!--                and major = #{user_major}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
 
-    <select id="searchByWhere" parameterType="user" resultMap="usermap">
-        <include refid="s"/>
-        <where>
-            <if test="user_name!=null and user_name!=''">
-                and name like "%${user_name}%"
-            </if>
-            <if test="user_major!=null and user_major!=''">
-                and major =#{user_major}
-            </if>
-        </where>
-    </select>
+<!--    <select id="getUserByid" parameterType="java.lang.Integer" resultMap="usermap">-->
+<!--        <include refid="s"/>-->
+<!--        where id=#{user_id}-->
+<!--    </select>-->
 
+<!--    <select id="checkUserName" parameterType="string" resultType="integer">-->
+<!--        select count(*) from user where name=#{name}-->
+<!--    </select>-->
 
-    <select id="selectLayUitable" resultMap="usermap">
-        select  * from user;
-    </select>
+<!--    <update id="updatehead" parameterType="user">-->
+<!--            update user set headpath=#{headpath} where id=#{user_id}-->
+<!--</update>-->
 
-    <sql id="s">
-            select * from user
-    </sql>
-
-
-    <select id="userCount" resultType="integer">
-        select count(*) from user
-        <where>
-            <if test="name!=null and name!=''">
-                and name=#{user_name}
-            </if>
-            <if test="major!=null and major!=''">
-                and major=#{user_major}
-            </if>
-        </where>
-    </select>
+<!--    <select id="searchByWhere" parameterType="user" resultMap="usermap">-->
+<!--        <include refid="s"/>-->
+<!--        <where>-->
+<!--            <if test="user_name!=null and user_name!=''">-->
+<!--                and name like "%${user_name}%"-->
+<!--            </if>-->
+<!--            <if test="user_major!=null and user_major!=''">-->
+<!--                and major =#{user_major}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
 
 
-    <select id="selectpage" parameterType="hashmap" resultMap="usermap">
-        SELECT * FROM USER LIMIT #{pagestart},#{size}
-    </select>
+<!--    <select id="selectLayUitable" resultMap="usermap">-->
+<!--        select  * from user;-->
+<!--    </select>-->
 
-    <insert id="addUser" useGeneratedKeys="true" keyProperty="user_id" parameterType="User">
-        insert into user (name,age,major,address) values(#{user_name},#{user_age},#{user_major},#{address})
-    </insert>
-    <update id="update" parameterType="User">
-        update user set name=#{user_name},age=#{user_age},major=#{user_major},address=#{address} where id=#{user_id}
-    </update>
+<!--    <sql id="s">-->
+<!--            select * from user-->
+<!--    </sql>-->
 
-    <delete id="delete" parameterType="java.lang.Integer">
-        delete from user where id=#{user_id}
-    </delete>
 
-    <select id="select" parameterType="hashmap" resultMap="usermap">
-        select * from user
-        <where>
-            <if test="user_name!=null and user_name!=''">
-                and name=#{user_name}
-            </if>
-            <if test="user_major!=null and user_major!=''">
-                and major=#{user_major}
-            </if>
-        </where>
-        limit #{pagestart},#{size}
-    </select>
+<!--    <select id="userCount" resultType="integer">-->
+<!--        select count(*) from user-->
+<!--        <where>-->
+<!--            <if test="name!=null and name!=''">-->
+<!--                and name=#{user_name}-->
+<!--            </if>-->
+<!--            <if test="major!=null and major!=''">-->
+<!--                and major=#{user_major}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+
+<!--    <select id="selectpage" parameterType="hashmap" resultMap="usermap">-->
+<!--        SELECT * FROM USER LIMIT #{pagestart},#{size}-->
+<!--    </select>-->
+
+<!--    <insert id="addUser" useGeneratedKeys="true" keyProperty="user_id" parameterType="User">-->
+<!--        insert into user (name,age,major,address) values(#{user_name},#{user_age},#{user_major},#{address})-->
+<!--    </insert>-->
+<!--    <update id="update" parameterType="User">-->
+<!--        update user set name=#{user_name},age=#{user_age},major=#{user_major},address=#{address} where id=#{user_id}-->
+<!--    </update>-->
+
+<!--    <delete id="delete" parameterType="java.lang.Integer">-->
+<!--        delete from user where id=#{user_id}-->
+<!--    </delete>-->
+
+<!--    <select id="select" parameterType="hashmap" resultMap="usermap">-->
+<!--        select * from user-->
+<!--        <where>-->
+<!--            <if test="user_name!=null and user_name!=''">-->
+<!--                and name=#{user_name}-->
+<!--            </if>-->
+<!--            <if test="user_major!=null and user_major!=''">-->
+<!--                and major=#{user_major}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        limit #{pagestart},#{size}-->
+<!--    </select>-->
 </mapper>
