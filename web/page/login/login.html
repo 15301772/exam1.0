@@ -642,8 +642,7 @@
                     contentType: "application/json",
                     success: function (d) {
                         if (d) {
-                            window.sessionStorage.setItem("nickName", d.nickName);
-                            window.sessionStorage.setItem("right", d.right);
+                            window.sessionStorage.setItem("user", JSON.stringify(d));
                             window.location.href = "../../index.html";
                         } else {
                             layer.msg("用户名密码错误")

@@ -9,12 +9,24 @@ layui.use(['bodyTab','form','element','layer','jquery'],function(){
 		element = layui.element;
 		$ = layui.$;
     	layer = parent.layer === undefined ? layui.layer : top.layer;
+    var user = JSON.parse(window.sessionStorage.getItem('user'));
+    var right = user.right
+    var url;
+    if (right == 1)
+        url = "json/teacher.json";
+    else if (right == 2)
+        url = "json/student.json";
+    else
+        url = "json/admin.json";
 		tab = layui.bodyTab({
 			openTabNum : "50",  //最大可打开窗口数量
 			url : "json/navs.json" //获取菜单json地址
 		});
+    $(".userName").text(user.nickName);
+    $(".adminName").text(user.nickName);
+    $(".userAvatar").attr("src", "/pic/" + user.headPath);
 
-	//通过顶部菜单获取左侧二三级菜单   注：此处只做演示之用，实际开发中通过接口传参的方式获取导航数据
+    //通过顶部菜单获取左侧二三级菜单   注：此处只做演示之用，实际开发中通过接口传参的方式获取导航数据
 	function getData(json){
 		$.getJSON(tab.tabConfig.url,function(data){
 			if(json == "contentManagement"){

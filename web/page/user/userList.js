@@ -34,7 +34,9 @@ layui.use(['form','layer','table','laytpl','jquery'],function(){
                     return "学生";
                 }
             }},
-            {field: 'userEndTime', title: '最后登录时间', align:'center',minWidth:150},
+            // {field: 'userEndTime', title: '最后登录时间', align:'center',minWidth:150,templet:function(d){
+            //         return d.html(newDate.split("日")[0]+"日</br>"+newDate.split("日")[1]);
+            //     }},
             {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
         ]]
     });
@@ -42,12 +44,14 @@ layui.use(['form','layer','table','laytpl','jquery'],function(){
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
         if($(".searchVal").val() != ''){
-            table.reload("newsListTable",{
+            table.reload("userListTable",{
                 page: {
                     curr: 1 //重新从第 1 页开始
                 },
+                url: '/userList.action',
+
                 where: {
-                    key: $(".searchVal").val()  //搜索的关键字
+                    nickname: $(".searchVal").val()  //搜索的关键字
                 }
             })
         }else{
@@ -68,7 +72,7 @@ layui.use(['form','layer','table','laytpl','jquery'],function(){
                     body.find(".loginName").val(edit.loginName);  //登录名
                     body.find(".email").val(edit.email);  //邮箱
                     body.find(".sex input[value="+edit.sex+"]").prop("checked","checked");  //性别
-                    body.find(".right").val(edit.right);  //会员等级
+                    body.find(".right").val(edit.right);  //权限
                     body.find(".status").val(edit.status);    //用户状态
                     form.render();
                 }
@@ -118,7 +122,35 @@ layui.use(['form','layer','table','laytpl','jquery'],function(){
             data = obj.data;
 
         if(layEvent === 'edit'){ //编辑
-            addUser(data);
+            //编辑用户
+                var index = layui.layer.open({
+                    title : "编辑用户",
+                    type : 2,
+                    content : "userInfo.html",
+                    success : function(layero, index){
+                        var body = layui.layer.getChildFrame('body', index);
+                        if(edit){
+                            body.find(".nickName").val(window.sessionStorage.getItem("user").nickName);  //昵称
+                            body.find(".loginName").val(edit.loginName);  //登录名
+                            body.find(".email").val(edit.email);  //邮箱
+                            body.find(".sex input[value="+edit.sex+"]").prop("checked","checked");  //性别
+                            body.find(".right").val(edit.right);  //权限
+                            body.find(".status").val(edit.status);    //用户状态
+                            form.render();
+                        }
+                        setTimeout(function(){
+                            layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
+                                tips: 3
+                            });
+                        },500)
+                    }
+                })
+                layui.layer.full(index);
+                window.sessionStorage.setItem("index",index);
+                //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+                $(window).on("resize",function(){
+                    layui.layer.full(window.sessionStorage.getItem("index"));
+                })
         }else if(layEvent === 'usable'){ //启用禁用
             var _this = $(this),
                 usableText = "是否确定禁用此用户？",

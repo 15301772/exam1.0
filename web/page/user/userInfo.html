@@ -23,23 +23,23 @@
 	</div>
 	<div class="layui-col-md6 layui-col-xs12">
 		<div class="layui-form-item">
-			<label class="layui-form-label">用户名</label>
+			<label class="layui-form-label">昵称</label>
 			<div class="layui-input-block">
-				<input type="text" value="杜鑫" disabled class="layui-input layui-disabled">
+				<input type="text" name="nickName" class="layui-input layui-disabled" >
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">用户组</label>
+			<label class="layui-form-label">登录名</label>
 			<div class="layui-input-block">
-				<input type="text" value="超级管理员" disabled class="layui-input layui-disabled">
+				<input type="text" name="loginName" disabled class="layui-input layui-disabled">
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">真实姓名</label>
-			<div class="layui-input-block">
-				<input type="text" value="" placeholder="请输入真实姓名" lay-verify="required" class="layui-input realName">
-			</div>
-		</div>
+		<!--<div class="layui-form-item">-->
+			<!--<label class="layui-form-label">真实姓名</label>-->
+			<!--<div class="layui-input-block">-->
+				<!--<input type="text" value="" placeholder="请输入真实姓名" lay-verify="required" class="layui-input realName">-->
+			<!--</div>-->
+		<!--</div>-->
 		<div class="layui-form-item" pane="">
 			<label class="layui-form-label">性别</label>
 			<div class="layui-input-block userSex">
@@ -99,12 +99,12 @@
 				<input type="text" value="" placeholder="请输入邮箱" lay-verify="email" class="layui-input userEmail">
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">自我评价</label>
-			<div class="layui-input-block">
-				<textarea placeholder="请输入内容" class="layui-textarea myself"></textarea>
-			</div>
-		</div>
+		<!--<div class="layui-form-item">-->
+			<!--<label class="layui-form-label">自我评价</label>-->
+			<!--<div class="layui-input-block">-->
+				<!--<textarea placeholder="请输入内容" class="layui-textarea myself"></textarea>-->
+			<!--</div>-->
+		<!--</div>-->
 		<div class="layui-form-item">
 			<div class="layui-input-block">
 				<button class="layui-btn" lay-submit="" lay-filter="changeUser">立即提交</button>
