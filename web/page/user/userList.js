@@ -25,18 +25,8 @@ layui.use(['form','layer','table','laytpl','jquery'],function(){
             {field: 'status', title: '用户状态',  align:'center',templet:function(d){
                 return d.status == "0" ? "正常使用" : "限制使用";
             }},
-            {field: 'right', title: '用户权限', align:'center',templet:function(d){
-                if(d.right == "0"){
-                    return "管理员";
-                }else if(d.right == "1"){
-                    return "老师";
-                }else if(d.right == "2"){
-                    return "学生";
-                }
-            }},
-            // {field: 'userEndTime', title: '最后登录时间', align:'center',minWidth:150,templet:function(d){
-            //         return d.html(newDate.split("日")[0]+"日</br>"+newDate.split("日")[1]);
-            //     }},
+            {templet:'<div>{{d.rightName}}</div>',title: '用户权限', width: 200, },
+            {field: 'userEndTime', title: '最后登录时间', align:'center',minWidth:150},
             {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
         ]]
     });

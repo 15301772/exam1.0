@@ -295,24 +295,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://E:/Tools/jstl-1.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://E:/Tools/standard.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://E:/Tools/package/Json/json-lib-2.1-jdk13.jar/json-lib-2.1-jdk13.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -419,5 +401,23 @@
       </library>
     </orderEntry>
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.0.41" level="application_server_libraries" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://E:/Tools/package/jstl-1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://E:/Tools/package/standard.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

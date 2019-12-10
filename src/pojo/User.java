@@ -1,16 +1,23 @@
 package pojo;
 
+import java.time.DateTimeException;
+import java.util.Date;
+
 public class User {
     private Integer id;
     private String nickName;
     private String loginName;
     private String password;
-    private Integer right;
+    private Integer rightId;
     private Integer status;
     private String headPath;
     private Integer classId;
     private String sex;
     private String email;
+    private String userEndTime;
+    private Right right;
+
+    public Right getRight() { return right; }
 
     public Integer getId() {
         return id;
@@ -42,14 +49,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Integer getRight() {
-        return right;
-    }
-
-    public void setRight(Integer right) {
-        this.right = right;
     }
 
     public Integer getStauts() {
@@ -92,6 +91,24 @@ public class User {
         this.email = email;
     }
 
+    public Integer getStatus() { return status; }
+
+    public void setStatus(Integer status) { this.status = status; }
+
+    public Integer getRightId() { return rightId; }
+
+    public void setRightId(Integer rightId) { this.rightId = rightId; }
+
+    public void setRight(Right right) { this.right = right; }
+
+    public String getUserEndTime() {
+        return userEndTime;
+    }
+
+    public void setUserEndTime(String userEndTime) {
+        this.userEndTime = userEndTime;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -99,12 +116,14 @@ public class User {
                 ", nickName='" + nickName + '\'' +
                 ", loginName='" + loginName + '\'' +
                 ", password='" + password + '\'' +
-                ", right=" + right +
-                ", stauts=" + status +
+                ", rightId=" + rightId +
+                ", status=" + status +
                 ", headPath='" + headPath + '\'' +
                 ", classId=" + classId +
                 ", sex='" + sex + '\'' +
                 ", email='" + email + '\'' +
+                ", userEndTime='" + userEndTime + '\'' +
+                ", right=" + right +
                 '}';
     }
 }

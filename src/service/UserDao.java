@@ -9,6 +9,8 @@ public interface UserDao {
 
     public User Login(User user);
 
-    public List<User> getUserList(User user);
+    public int loginDateTime(HashMap hashMap);
+
+    public List<User> getUserList(HashMap hashMap);
 
 }

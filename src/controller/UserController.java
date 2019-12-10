@@ -13,6 +13,7 @@ import util.PageUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,14 +31,18 @@ public class UserController {
     @ResponseBody
     public User login(@RequestBody User user) {
         User loginUser = userDao.Login(user);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id",loginUser.getId());
+        map.put("userEndTime",new Date());
+        userDao.loginDateTime(map);
         return loginUser;
     }
 
     @RequestMapping("/userList.action")
     @ResponseBody
-    public Map<String, Object> selectLayUitable_Page(User user) {
+    public Map<String, Object> selectLayUitable_Page(HashMap hashMap) {
         HashMap<String, Object> map = new HashMap<>();
-        List<User> users = userDao.getUserList(user);
+        List<User> users = userDao.getUserList(hashMap);
         map.put("code",0);
         map.put("msg","");
         JSONArray data = JSONArray.fromObject(users);
