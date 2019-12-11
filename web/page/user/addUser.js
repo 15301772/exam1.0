@@ -6,13 +6,13 @@ layui.use(['form', 'layer'], function () {
     form.on("submit(addUser)", function (data) {
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
-        $.post('/springmvcday02/updateUserInfo.action', data.field, function (flag) {
+        $.post('/addUserInfo.action', data.field, function (flag) {
             if (flag == 1) {
-                layer.msg("修改成功", {icon: 6});
-                layer.closeAll("iframe");//刷新父页面
+                layer.msg("添加成功", {icon: 6});
+                layer.closeAll();//刷新父页面
                 table.reload('testReload', {});//修改后返回列表页面进行刷新
             } else {
-                layer.msg("修改失败", {icon: 6});
+                layer.msg("添加失败", {icon: 6});
             }
         })
         // return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。

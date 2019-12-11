@@ -19,11 +19,23 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public int count(User user) { return userMapper.count(user); }
+
+    @Override
     public int loginDateTime(HashMap hashMap) { return userMapper.loginDateTime(hashMap); }
 
     @Override
     public List<User> getUserList(HashMap hashMap) {
         return userMapper.getUserList(hashMap);
     }
+
+    @Override
+    public int addUser(User user) { return userMapper.addUser(user); }
+
+    @Override
+    public int delete(Integer id) { return userMapper.delete(id); }
+
+    @Override
+    public int update(User user) { return userMapper.update(user); }
 
 }

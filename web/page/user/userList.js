@@ -17,6 +17,7 @@ layui.use(['form','layer','table','laytpl','jquery'],function(){
         id : "userListTable",
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
+            {field: 'id',title: 'ID', width: 80,align:"center",style:'display:none;'},
             {field: 'nickName', title: '用户名', minWidth:100, align:"center"},
             {field: 'email', title: '用户邮箱', minWidth:200, align:'center',templet:function(d){
                 return '<a class="layui-blue" href="mailto:'+d.email+'">'+d.email+'</a>';
@@ -25,14 +26,18 @@ layui.use(['form','layer','table','laytpl','jquery'],function(){
             {field: 'status', title: '用户状态',  align:'center',templet:function(d){
                 return d.status == "0" ? "正常使用" : "限制使用";
             }},
-            {templet:'<div>{{d.rightName}}</div>',title: '用户权限', width: 200, },
+            {templet:'<div>{{d.right.rightName}}</div>',title: '用户权限', width: 200,align:"center"},
             {field: 'userEndTime', title: '最后登录时间', align:'center',minWidth:150},
             {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
         ]]
     });
+    // $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
+    $('table.layui-table thead tr th:nth-child(2)').addClass('layui-hide');
 
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
+        var nickName=$("#nickName").val();
+        var loginName=$("#searchloginName").val();
         if($(".searchVal").val() != ''){
             table.reload("userListTable",{
                 page: {
@@ -54,7 +59,8 @@ layui.use(['form','layer','table','laytpl','jquery'],function(){
         var index = layui.layer.open({
             title : "添加用户",
             type : 2,
-            content : "userAdd.html",
+            content : "addUser.html",
+            id: "testReload",
             success : function(layero, index){
                 var body = layui.layer.getChildFrame('body', index);
                 if(edit){
@@ -86,24 +92,48 @@ layui.use(['form','layer','table','laytpl','jquery'],function(){
 
     //批量删除
     $(".delAll_btn").click(function(){
-        var checkStatus = table.checkStatus('userListTable'),
-            data = checkStatus.data,
-            newsId = [];
-        if(data.length > 0) {
+        var data = checkStatus.data,
+            id = "";
+        if (data.length > 0) {
             for (var i in data) {
-                newsId.push(data[i].newsId);
+                id += data[i].id + ","
+                layer.msg(user_ids);
             }
-            layer.confirm('确定删除选中的用户？', {icon: 3, title: '提示信息'}, function (index) {
-                // $.get("删除文章接口",{
-                //     newsId : newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                tableIns.reload();
-                layer.close(index);
-                // })
+            console.log(id);
+            layer.confirm('真的删除行么', function (index) {
+                $.ajax({
+                    url: "delete.action",
+                    data: {"id": id},
+                    success: function (flag) {
+                        if (flag > 0) {
+                            layer.msg("删除成功", {icon: 6});
+                            layer.closeAll();
+                            table.reload('testReload', {});
+                        } else {
+                            layer.msg("删除失败", {icon: 6});
+                        }
+                    }
+                })
             })
-        }else{
-            layer.msg("请选择需要删除的用户");
         }
+        // var checkStatus = table.checkStatus('userListTable'),
+        //     data = checkStatus.data,
+        //     id = [];
+        // if(data.length > 0) {
+        //     for (var i in data) {
+        //         id.push(data[i].id);
+        //     }
+        //     layer.confirm('确定删除选中的用户？', {icon: 3, title: '提示信息'}, function (index) {
+        //         $.get("delete.action",{
+        //             id : id  //将需要删除的newsId作为参数传入
+        //         },function(data){
+        //         tableIns.reload();
+        //         layer.close(index);
+        //         })
+        //     })
+        // }else{
+        //     layer.msg("请选择需要删除的用户");
+        // }
     })
 
     //列表操作
@@ -141,33 +171,46 @@ layui.use(['form','layer','table','laytpl','jquery'],function(){
                 $(window).on("resize",function(){
                     layui.layer.full(window.sessionStorage.getItem("index"));
                 })
-        }else if(layEvent === 'usable'){ //启用禁用
-            var _this = $(this),
-                usableText = "是否确定禁用此用户？",
-                btnText = "已禁用";
-            if(_this.text()=="已禁用"){
-                usableText = "是否确定启用此用户？",
-                btnText = "已启用";
-            }
-            layer.confirm(usableText,{
-                icon: 3,
-                title:'系统提示',
-                cancel : function(index){
-                    layer.close(index);
-                }
-            },function(index){
-                _this.text(btnText);
-                layer.close(index);
-            },function(index){
-                layer.close(index);
-            });
+        // }else if(layEvent === 'usable'){ //启用禁用
+        //     var _this = $(this),
+        //         usableText = "是否确定禁用此用户？",
+        //         btnText = "已禁用";
+        //     if(_this.text()=="已禁用"){
+        //         usableText = "是否确定启用此用户？",
+        //         btnText = "已启用";
+        //     }
+        //     layer.confirm(usableText,{
+        //         icon: 3,
+        //         title:'系统提示',
+        //         cancel : function(index){
+        //             layer.close(index);
+        //         }
+        //     },function(index){
+        //         _this.text(btnText);
+        //         layer.close(index);
+        //     },function(index){
+        //         layer.close(index);
+        //     });
         }else if(layEvent === 'del'){ //删除
             layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
-                // $.get("删除文章接口",{
-                //     newsId : data.newsId  //将需要删除的newsId作为参数传入
+                $.ajax({
+                    url: "delete.action",
+                    data: {"id": data.id},
+                    success: function (flag) {
+                        if (flag == 1) {
+                            layer.msg("删除成功", {icon: 6});
+                            layer.closeAll();
+                            table.reload('userListTable', {});
+                        } else {
+                            layer.msg("删除失败", {icon: 6});
+                        }
+                    }
+                })
+                // $.get("delete.action",{
+                //     id : data.id  //将需要删除的newsId作为参数传入
                 // },function(data){
-                    tableIns.reload();
-                    layer.close(index);
+                //     tableIns.reload();
+                //     layer.close(index);
                 // })
             });
         }

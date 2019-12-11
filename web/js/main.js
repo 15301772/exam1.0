@@ -28,6 +28,12 @@ layui.use(['form','element','layer','jquery'],function(){
         layer = parent.layer === undefined ? layui.layer : top.layer,
         element = layui.element;
         $ = layui.jquery;
+    var user = JSON.parse(window.sessionStorage.getItem('user'));
+    if (user.right == 1)
+        $("#userInfo").css("display", "none");
+    if (user.right == 2)
+        $("#userInfo").css("display", "none");
+
     //上次登录时间【此处应该从接口获取，实际使用中请自行更换】
     $(".loginTime").html(newDate.split("日")[0]+"日</br>"+newDate.split("日")[1]);
     //icon动画
@@ -73,21 +79,27 @@ layui.use(['form','element','layer','jquery'],function(){
     }
 
     //最新文章列表
-    $.get("../json/newsList.json",function(data){
-        var hotNewsHtml = '';
-        for(var i=0;i<5;i++){
-            hotNewsHtml += '<tr>'
-                +'<td align="left"><a href="javascript:;"> '+data.data[i].newsName+'</a></td>'
-                +'<td>'+data.data[i].newsTime.substring(0,10)+'</td>'
-                +'</tr>';
-        }
-        $(".hot_news").html(hotNewsHtml);
-        $(".userAll span").text(data.length);
-    })
+    // $.get("../json/newsList.json",function(data){
+    //     var hotNewsHtml = '';
+    //     for(var i=0;i<5;i++){
+    //         hotNewsHtml += '<tr>'
+    //             +'<td align="left"><a href="javascript:;"> '+data.data[i].newsName+'</a></td>'
+    //             +'<td>'+data.data[i].newsTime.substring(0,10)+'</td>'
+    //             +'</tr>';
+    //     }
+    //     $(".hot_news").html(hotNewsHtml);
+    //     $(".userAll span").text(data.length);
+    // })
 
     //用户数量
-    $.get("../userList.action",function(data){
-        $(".userAll span").text(data.count);
+    // $.get("../userList.action",function(data){
+    //     $(".userAll span").text(data.count);
+    // })
+    $.ajax({
+        url: "/count.action",
+        success: function (d) {
+            $(".userAll span").text(d);
+        }
     })
 
     //外部图标

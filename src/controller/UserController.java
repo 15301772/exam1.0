@@ -38,6 +38,13 @@ public class UserController {
         return loginUser;
     }
 
+    @RequestMapping("/count.action")
+    @ResponseBody
+    public int count() {
+        return userDao.count(null);
+
+    }
+
     @RequestMapping("/userList.action")
     @ResponseBody
     public Map<String, Object> selectLayUitable_Page(HashMap hashMap) {
@@ -48,6 +55,32 @@ public class UserController {
         JSONArray data = JSONArray.fromObject(users);
         map.put("data",data);
         return map;
-
     }
+    @RequestMapping("/addUserInfo.action")
+    @ResponseBody
+    public int  addUserInfo(User user){
+        return userDao.addUser(user);
+    }
+
+    @RequestMapping("/delete.action")
+    @ResponseBody
+    public int delete(String id){
+        if(id.endsWith(",")){
+            id= id.substring(0,id.length()-1);
+        }
+        String[] split = id.split(",");
+        int i=0;
+        for (String s:split) {
+            int i1 = userDao.delete(Integer.parseInt(s));
+            i=i+i1;
+        }
+        return i;
+    }
+
+    @RequestMapping("/updateUserInfo.action")
+    @ResponseBody
+    public int updateUserInfo(User user) {
+        return userDao.update(user);
+    }
+
 }
