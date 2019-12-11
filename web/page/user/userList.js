@@ -72,6 +72,11 @@ layui.use(['form','layer','table','laytpl','jquery'],function(){
                     body.find(".status").val(edit.status);    //用户状态
                     form.render();
                 }
+
+
+
+
+
                 setTimeout(function(){
                     layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
