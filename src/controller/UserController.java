@@ -56,6 +56,7 @@ public class UserController {
         map.put("data",data);
         return map;
     }
+
     @RequestMapping("/addUserInfo.action")
     @ResponseBody
     public int  addUserInfo(User user){
