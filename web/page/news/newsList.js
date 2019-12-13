@@ -9,7 +9,7 @@ layui.use(['form','layer','laydate','table','laytpl'],function(){
     //新闻列表
     var tableIns = table.render({
         elem: '#newsList',
-        url : '../../json/newsList.json',
+        url : '/getExamList.action',
         cellMinWidth : 95,
         page : true,
         height : "full-125",
@@ -18,15 +18,15 @@ layui.use(['form','layer','laydate','table','laytpl'],function(){
         id : "newsListTable",
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
-            {field: 'newsId', title: 'ID', width:60, align:"center"},
-            {field: 'newsName', title: '试题名称', width:350},
-            {field: 'newsAuthor', title: '发布者', align:'center'},
-            {field: 'newsStatus', title: '发布状态',  align:'center',templet:"#newsStatus"},
-            {field: 'newsLook', title: '浏览权限', align:'center'},
-            {field: 'newsTop', title: '是否置顶', align:'center', templet:function(d){
-                return '<input type="checkbox" name="newsTop" lay-filter="newsTop" lay-skin="switch" lay-text="是|否" '+d.newsTop+'>'
-            }},
-            {field: 'newsTime', title: '发布时间', align:'center', minWidth:110, templet:function(d){
+            {field: 'id', title: 'ID', width:60, align:"center"},
+            {field: 'examName', title: '试题名称', width:350},
+            {field: 'examPublisher', title: '发布者', align:'center'},
+            {field: 'examStatus', title: '发布状态',  align:'center',templet:"#newsStatus"},
+            {field: 'publish', title: '浏览权限', align:'center'},
+            // {field: 'newsTop', title: '是否置顶', align:'center', templet:function(d){
+            //     return '<input type="checkbox" name="newsTop" lay-filter="newsTop" lay-skin="switch" lay-text="是|否" '+d.newsTop+'>'
+            // }},
+            {field: 'publishTime', title: '发布时间', align:'center', minWidth:110, templet:function(d){
                 return d.newsTime.substring(0,10);
             }},
             {title: '操作', width:170, templet:'#newsListBar',fixed:"right",align:"center"}
@@ -34,17 +34,17 @@ layui.use(['form','layer','laydate','table','laytpl'],function(){
     });
 
     //是否置顶
-    form.on('switch(newsTop)', function(data){
-        var index = layer.msg('修改中，请稍候',{icon: 16,time:false,shade:0.8});
-        setTimeout(function(){
-            layer.close(index);
-            if(data.elem.checked){
-                layer.msg("置顶成功！");
-            }else{
-                layer.msg("取消置顶成功！");
-            }
-        },500);
-    })
+    // form.on('switch(newsTop)', function(data){
+    //     var index = layer.msg('修改中，请稍候',{icon: 16,time:false,shade:0.8});
+    //     setTimeout(function(){
+    //         layer.close(index);
+    //         if(data.elem.checked){
+    //             layer.msg("置顶成功！");
+    //         }else{
+    //             layer.msg("取消置顶成功！");
+    //         }
+    //     },500);
+    // })
 
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){

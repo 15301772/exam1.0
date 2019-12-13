@@ -3,5 +3,25 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.ExamMapper">
+    <resultMap id="examMap" type="ExamUser">
 
+        <id property="id" column="eid"></id>
+        <result property="examName" column="examName"></result>
+        <result property="examPublisher" column="examPublisher"></result>
+        <result property="classId" column="classId"></result>
+        <result property="teacherId" column="teacherId"></result>
+        <result property="publish" column="publish"></result>
+        <result property="publishTime" column="publishTime"></result>
+        <result property="examStatus" column="examStatus"></result>
+
+        <association property="user" javaType="user">
+            <id property="id" column="uid"></id>
+            <result property="nickName" column="nickName"></result>
+        </association>
+    </resultMap>
+    <select id="getExamList" parameterType="hashmap" resultMap="examMap">
+        select e.id as eid ,e.examName,e.examPublisher,e.classId,e.publish,e.teacherId,e.publishTime,e.examStatus,u.nickName,u.rightId,u.id as uid,r.rightName
+        from exam as e inner join user as u on u.id = e.teacherId left join right as r on u.rightid = r.id
+        where u.rightId = 1
+    </select>
 </mapper>

@@ -94,14 +94,15 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'jquery'], function () {
 
     //批量删除
     $(".delAll_btn").click(function () {
+        var checkStatus = table.checkStatus('userListTable')
         var data = checkStatus.data,
-            id = "";
-        if (data.length > 0) {
-            for (var i in data) {
-                id += data[i].id + ","
-                layer.msg(user_ids);
-            }
-            console.log(id);
+                id = "";
+            if (data.length > 0) {
+                for (var i in data) {
+                    id += data[i].id + ","
+                    layer.msg(id);
+                }
+                console.log(id);
             layer.confirm('真的删除行么', function (index) {
                 $.ajax({
                     url: "/delete.action",
