@@ -23,9 +23,6 @@ layui.use(['form','layer','laydate','table','laytpl'],function(){
             {field: 'examPublisher', title: '发布者', align:'center'},
             {field: 'examStatus', title: '发布状态',  align:'center',templet:"#newsStatus"},
             {field: 'publish', title: '浏览权限', align:'center'},
-            // {field: 'newsTop', title: '是否置顶', align:'center', templet:function(d){
-            //     return '<input type="checkbox" name="newsTop" lay-filter="newsTop" lay-skin="switch" lay-text="是|否" '+d.newsTop+'>'
-            // }},
             {field: 'publishTime', title: '发布时间', align:'center', minWidth:110, templet:function(d){
                 return d.newsTime.substring(0,10);
             }},

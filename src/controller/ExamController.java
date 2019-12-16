@@ -19,7 +19,7 @@ public class ExamController {
 
     @RequestMapping("/examList.action")
     @ResponseBody
-    public Map<String, Object> selectLayUitable_Page(HashMap hashMap) {
+    public Map<String, Object> selectLayUiTable_Page(HashMap hashMap) {
         HashMap<String, Object> map = new HashMap<>();
         List<Exam> exams = examDao.getExamList(hashMap);
         map.put("code",0);

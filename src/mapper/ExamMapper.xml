@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.ExamMapper">
-    <resultMap id="examMap" type="ExamUser">
+    <resultMap id="examMap" type="Exam">
 
         <id property="id" column="eid"></id>
         <result property="examName" column="examName"></result>
@@ -20,8 +20,8 @@
         </association>
     </resultMap>
     <select id="getExamList" parameterType="hashmap" resultMap="examMap">
-        select e.id as eid ,e.examName,e.examPublisher,e.classId,e.publish,e.teacherId,e.publishTime,e.examStatus,u.nickName,u.rightId,u.id as uid,r.rightName
-        from exam as e inner join user as u on u.id = e.teacherId left join right as r on u.rightid = r.id
-        where u.rightId = 1
+        SELECT e.id AS eid ,e.examName,e.examPublisher,e.classId,e.publish,e.teacherId,e.publishTime,e.examStatus,u.nickName,u.rightId,u.id AS uid,r.rightName
+        FROM exam AS e INNER JOIN `user` AS u ON u.id = e.teacherId LEFT JOIN `right` AS r ON u.rightid = r.id
+        WHERE u.rightId = 1
     </select>
 </mapper>
